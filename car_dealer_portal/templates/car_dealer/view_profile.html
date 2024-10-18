@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'car_dealer/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="w3-bar w3-large w3-black">
+  <div class="w3-bar-item w3-left w3-black">ACCOUNT USER:<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+</svg> {{user.username}}</div>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right " href="/car_dealer_portal/auth/">Home</a>
+</div>
+<div class="w3-display-container" style="height:400px;">
+  <div class="w3-display-middle">
+
+    <h2 style="color: blue">Your Profile</h2>
+     <div class="w3-container w3-card-4 w3-light-grey" style="max-width: 600px; margin: auto; margin-top: 50px;">
+  <div class="w3-display-container" style="height: 300px;">
+
+    <div class="w3-container">
+      <p><strong>First Name:</strong> {{ user.first_name }}</p>
+      <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Contact:</strong> {{ car_dealer.mobile }}</p>
+      <p><strong>City:</strong> {{ car_dealer.area.city }}</p>
+      <p><strong>Pincode:</strong> {{ car_dealer.area.pincode }}</p>
+    </div>
+
+  </div>
+     </div></div></div>
+
+{% endblock %}
+</html>

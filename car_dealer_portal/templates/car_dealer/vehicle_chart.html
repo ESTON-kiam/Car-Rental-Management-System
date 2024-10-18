@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'car_dealer/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .account-info {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  .account-info svg {
+    margin-right: 8px;
+  }
+  .account-info strong {
+    margin-left: 5px;
+  }
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  .chart-wrapper {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+  footer {
+    padding: 10px 0;
+  }
+</style>
+
+<div class="w3-bar w3-large w3-black">
+  <div class="w3-bar-item w3-left account-info">
+    <span>ACCOUNT USER:</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    </svg>
+    <strong>{{ user.username }}</strong>
+  </div>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/auth/">Home</a>
+</div>
+
+<div class="chart-container">
+  <div class="chart-wrapper">
+    <h3 class="w3-container w3-black w3-large w3-padding-16">Vehicles by Area</h3>
+    <canvas id="vehicleChart"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var ctx = document.getElementById('vehicleChart').getContext('2d');
+  var vehicleChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: {{ labels|safe }},
+      datasets: [{
+        label: 'Vehicles by Area',
+        data: {{ data|safe }},
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.7)',
+          'rgba(54, 162, 235, 0.7)',
+          'rgba(255, 206, 86, 0.7)',
+          'rgba(75, 192, 192, 0.7)',
+          'rgba(153, 102, 255, 0.7)',
+          'rgba(255, 159, 64, 0.7)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Vehicles by Area'
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}
+
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+  <p>&copy; 2024 Eston Kiama. All rights reserved.</p>
+</footer>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="">
+{% extends 'car_dealer/base.html' %}
+{% block content %}
+<div class="w3-bar w3-black w3-large">
+  <div class="w3-bar-item w3-left w3-black">ACCOUNT USER:
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    </svg> {{ user.username }}
+  </div>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/auth/">Home</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/order_list/">Orders</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/manage_vehicles/">Vehicles</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/history/">Earnings</a>
+</div>
+<h3 class="w3-center" style="padding-top:30px"><b>Posted Vehicles</b></h3>
+<div style="padding:18px">
+  {% if vehicle_list %}
+  <table class="w3-table w3-striped w3-center">
+    <tr>
+      <th style="padding:20px;">Car</th>
+      <th style="padding:20px;">Color</th>
+      <th style="padding:20px;">Capacity</th>
+      <th style="padding:20px;">Pincode</th>
+      <th style="padding:20px;">Address</th>
+      <th style="padding:20px;">Action</th>
+    </tr>
+    {% for vehicle in vehicle_list %}
+    <tr>
+      <td>{{ vehicle.car_name }}</td>
+      <td>{{ vehicle.color }}</td>
+      <td>{{ vehicle.capacity }} Seats</td>
+      <td>{{ vehicle.area.pincode }}</td>
+      <td>{{ vehicle.area.city }}</td>
+      <td>
+        <form action="/car_dealer_portal/delete/" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="id" value="{{ vehicle.id }}">
+          <a href="{% url 'update_vehicle' vehicle.id %}" class="w3-btn w3-blue">Update</a>
+          <input class="w3-btn w3-red" type="submit" value="Delete">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="w3-panel w3-pale-red w3-leftbar w3-border-red">
+    <p>No vehicles added yet.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+</html>

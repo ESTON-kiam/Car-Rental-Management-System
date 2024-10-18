@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Error</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/w3.css' %}">
+</head>
+<body>
+    <div class="w3-container w3-red">
+        <h1>An error occurred</h1>
+        <p>{{ error_message }}</p>
+        <a class="w3-button w3-black" href="/car_dealer_portal/edit_profile/">Back to Edit Profile</a>
+    </div>
+</body>
+</html>

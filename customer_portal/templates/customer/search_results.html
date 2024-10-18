@@ -1,0 +1,53 @@
+<html lang="">
+{% extends 'customer/base.html' %}
+{% block content %}
+
+<div class="w3-bar w3-large w3-black">
+  <div class="w3-bar-item w3-left w3-black">ACCOUNT USER:<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+</svg> {{user.username}}</div>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/manage/">Manage</a>
+  <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search Cars</a>
+    <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/auth/">Home</a>
+</div>
+
+<h3 class="w3-center" style="padding-top:30px;"><b>Search Results</b></h3>
+
+<div class="w3-center" style="padding:50px;">
+<table class="w3-table w3-striped w3-center w3-large">
+  
+
+    <tr>
+      <th style="padding:20px;">Vehicle </th>
+      <th style="padding:20px;">Color  </th>
+      <th style="padding:20px;">Capacity </th>
+      <th style="padding:20px;">Description </th>
+      <th style="padding:20px;">Pincode </th>
+
+    </tr>
+    {% for vehicle in request.session.vehicles_list %}
+    <tr>
+      <td>{{vehicle.name}}</td>
+      <td>{{vehicle.color}}</td>
+      <td>{{vehicle.capacity}}</td>
+      <td>{{vehicle.description}}</td>
+      <td>{{vehicle.pincode}}</td>
+      <td><form action = "/customer_portal/rent/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{vehicle.id}}">
+        <input class="w3-btn w3-green" type="submit" value="Rent">
+        </form></td>
+    </tr>
+
+  {% endfor %}
+  
+  
+  
+</table>
+</div>
+{% endblock %}
+
+
+</html>
