@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 
-# Create your views here.
+
 def contact(request):
     return render(request, 'contact.html')
 def index(request):
